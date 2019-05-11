@@ -107,11 +107,13 @@ pub fn handle_get(addr: HashString) -> Result<Option<Entry>, ZomeApiError> {
     hdk::get_entry(&addr)
 }
 
+// todo
 pub fn handle_approve(addr: HashString) -> Result<(), ZomeApiError> {
     match hdk::get_entry(&addr) {
-      Ok(Some(old_entry)) => {
-        old_entry.status = Status::Approved;
-        update_entry(old_entry.clone(), &addr);
+      Ok(Some(orig_entry)) => {
+        let upd_entry = orig_entry as Order;
+        upd_entry.status = Status::Approved;
+        update_entry(upd_entry, &addr);
         Ok(())
       }
       Err(err) => {
