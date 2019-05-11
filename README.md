@@ -10,11 +10,16 @@ set it up:
 hc keygen
 ```
 
+..* install Nodejs dependecies:
+
+todo:
+```
+npm install @tap
+```
 
 
 
-
-run test:
+run the tests:
 
 ```
 hc test

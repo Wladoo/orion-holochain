@@ -24,13 +24,23 @@ struct Order {
     direction: Direction,
     quoted_price_per_unit: f64,
     amount: f64,
-    inserted_at: u64
+    inserted_at: u64,
+    status: Status
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub enum Direction {
     Buy,
     Sell
+}
+
+//todo: think
+#[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
+pub enum Status {
+    New,
+    Pending,
+    Approved,
+    Closed
 }
 
 pub fn definition() -> ValidatingEntryType {
@@ -83,7 +93,8 @@ impl Order {
       direction: direction,
       quoted_price_per_unit: quoted_price_per_unit,
       amount: amount,
-      inserted_at: ts
+      inserted_at: ts,
+      status: Status::New
     }
   }
 
@@ -92,16 +103,21 @@ impl Order {
     }
 }
 
-
-
 pub fn handle_get(addr: HashString) -> Result<Option<Entry>, ZomeApiError> {
     hdk::get_entry(&addr)
 }
 
-// todo
 pub fn handle_approve(addr: HashString) -> Result<(), ZomeApiError> {
-    hdk::get_entry(&addr);
-    unimplemented!()
+    match hdk::get_entry(&addr) {
+      Ok(Some(old_entry)) => {
+        old_entry.status = Status::Approved;
+        update_entry(old_entry.clone(), &addr);
+        Ok(())
+      }
+      Err(err) => {
+        unimplemented!()
+      }
+    }
 }
 
 

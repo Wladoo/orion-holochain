@@ -14,7 +14,7 @@ scenario.runTape("create broker", async (t, { alice }) => {
 
     // todo:
     // t.deepEqual(res1, { Ok: 'QmYfmS8M4EZRkpkNqyAtCgPaMjguAnbwupvRfpASYo4j9k' });
-})
+});
 
 scenario.runTape("create order", async (t, { alice }) => {
     //todo: why will it pass?
@@ -24,4 +24,12 @@ scenario.runTape("create order", async (t, { alice }) => {
 
     const res2 = alice.call("orion_project1", "approve_order", {"addr": addr});
     t.equal(res2.Err, undefined);
-})
+});
+
+scenario.runTape("create trade", async (t, { alice }) => {
+
+});
+
+scenario.runTape("add balance", async (t, { alice }) => {
+
+});
