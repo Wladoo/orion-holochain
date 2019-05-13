@@ -13,6 +13,7 @@ use hdk::holochain_core_types::{
     dna::entry_types::Sharing
 };
 use std::time::{SystemTime, UNIX_EPOCH};
+use std::{collections::BTreeMap, convert::TryFrom};
 
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
@@ -108,15 +109,27 @@ pub fn handle_get(addr: HashString) -> Result<Option<Entry>, ZomeApiError> {
 }
 
 // todo
+// todo: replace Result<(), ZomeApiError> with ZomeApiResult<HashString> ?
 pub fn handle_approve(addr: HashString) -> Result<(), ZomeApiError> {
     match hdk::get_entry(&addr) {
-      Ok(Some(orig_entry)) => {
-        let upd_entry = orig_entry as Order;
-        upd_entry.status = Status::Approved;
-        update_entry(upd_entry, &addr);
+      Ok(Some(Entry::App(_, orig_entry_json_str))) => {
+        let orig_order = Order::try_from(orig_entry_json_str)?;
+        let mut upd_order = Order::new(orig_order.base_asset_code, orig_order.quoted_asset_code, orig_order.direction, orig_order.quoted_price_per_unit, orig_order.amount);
+        upd_order.status = Status::Approved;
+
+        // hdk::update_entry(upd_entry, &addr);
+        let updated_order_entry = Entry::App(
+            "order".into(),
+            // Post::new(&new_content, &post.date_created).into(),
+            upd_order.into()
+        );
+
+        hdk::update_entry(updated_order_entry, &addr);
+
+
         Ok(())
       }
-      Err(err) => {
+      _ => {
         unimplemented!()
       }
     }
