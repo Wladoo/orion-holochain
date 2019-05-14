@@ -104,18 +104,15 @@ impl Order {
     }
 }
 
-pub fn handle_get(addr: HashString) -> Option<Order> {
+pub fn handle_get_single(addr: HashString) -> Option<Order> {
     match hdk::get_entry(&addr) {
       Ok(Some(Entry::App(_, orig_entry_json_str))) => {
         match Order::try_from(orig_entry_json_str) {
           Ok(res) => Some(res),
           Err(err) => None
         }
-        
       }
-      _ => {
-        None
-      }
+      _ => None
     }
 }
 
