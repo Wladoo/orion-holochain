@@ -17,7 +17,7 @@ use std::{collections::BTreeMap, convert::TryFrom};
 
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
-struct Order {
+pub struct Order {
     exchange_addr: HashString,
     broker_addr: HashString,
     base_asset_code: String,
@@ -104,8 +104,19 @@ impl Order {
     }
 }
 
-pub fn handle_get(addr: HashString) -> Result<Option<Entry>, ZomeApiError> {
-    hdk::get_entry(&addr)
+pub fn handle_get(addr: HashString) -> Option<Order> {
+    match hdk::get_entry(&addr) {
+      Ok(Some(Entry::App(_, orig_entry_json_str))) => {
+        match Order::try_from(orig_entry_json_str) {
+          Ok(res) => Some(res),
+          Err(err) => None
+        }
+        
+      }
+      _ => {
+        None
+      }
+    }
 }
 
 // todo
@@ -120,6 +131,8 @@ pub fn handle_approve(addr: HashString) -> Result<(), ZomeApiError> {
         hdk::update_entry(updated_order_entry, &addr);
         Ok(())
       }
+
+      // todo
       _ => {
         unimplemented!()
       }
@@ -130,10 +143,4 @@ pub fn handle_create(base_asset_code: String, quoted_asset_code: String, directi
     let ord1 = Order::new(base_asset_code, quoted_asset_code, direction, quoted_price_per_unit, amount);
     let ord1_ent = Entry::App("order".into(), ord1.into());
     Ok(hdk::commit_entry(&ord1_ent)?)
-}
-
-//status of the most recent trade
-fn get_status(addr: HashString) {
-  unimplemented!()
-
 }
