@@ -116,17 +116,8 @@ pub fn handle_approve(addr: HashString) -> Result<(), ZomeApiError> {
         let orig_order = Order::try_from(orig_entry_json_str)?;
         let mut upd_order = Order::new(orig_order.base_asset_code, orig_order.quoted_asset_code, orig_order.direction, orig_order.quoted_price_per_unit, orig_order.amount);
         upd_order.status = Status::Approved;
-
-        // hdk::update_entry(upd_entry, &addr);
-        let updated_order_entry = Entry::App(
-            "order".into(),
-            // Post::new(&new_content, &post.date_created).into(),
-            upd_order.into()
-        );
-
+        let updated_order_entry = Entry::App("order".into(), upd_order.into());
         hdk::update_entry(updated_order_entry, &addr);
-
-
         Ok(())
       }
       _ => {
@@ -135,11 +126,8 @@ pub fn handle_approve(addr: HashString) -> Result<(), ZomeApiError> {
     }
 }
 
-
-// todo - replace String with &str
 pub fn handle_create(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: f64, amount: f64) -> Result<HashString, ZomeApiError> {
     let ord1 = Order::new(base_asset_code, quoted_asset_code, direction, quoted_price_per_unit, amount);
-
     let ord1_ent = Entry::App("order".into(), ord1.into());
     Ok(hdk::commit_entry(&ord1_ent)?)
 }
