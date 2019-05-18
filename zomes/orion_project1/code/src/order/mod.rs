@@ -99,20 +99,23 @@ impl Order {
     }
   }
 
-    fn calculate_total_price(self) -> f64 {
-        self.amount * self.quoted_price_per_unit
-    }
+  fn calculate_total_price(self) -> f64 {
+      self.amount * self.quoted_price_per_unit
+  }
 }
 
-pub fn handle_get_single(addr: HashString) -> Option<Order> {
+pub fn handle_get_single(addr: HashString) -> Result<Order, ZomeApiError> {
     match hdk::get_entry(&addr) {
-      Ok(Some(Entry::App(_, orig_entry_json_str))) => {
-        match Order::try_from(orig_entry_json_str) {
-          Ok(res) => Some(res),
-          Err(err) => None
+        Ok(Some(Entry::App(_, entry_json_str)))  => {
+            let res = Order::try_from(entry_json_str)?;
+            Ok(res)
         }
-      }
-      _ => None
+
+        //todo
+        // Ok(None) | Err(err) => {
+        _ => {
+          unimplemented!()
+        }
     }
 }
 
@@ -141,3 +144,32 @@ pub fn handle_create(base_asset_code: String, quoted_asset_code: String, directi
     let ord1_ent = Entry::App("order".into(), ord1.into());
     Ok(hdk::commit_entry(&ord1_ent)?)
 }
+
+
+
+
+
+
+
+
+
+
+// impl From<Option<Order>> for hdk::holochain_core_types::json::JsonString {
+//   fn from(order: Order) -> Self {
+//     JsonString::empty_object()
+//   }
+// }
+
+
+// impl TryFrom<EntryType> for Order {
+//     type Error = HolochainError;
+//     fn try_from(entry_type: EntryType) -> Result<Self, Self::Error> {
+//         match entry_type {
+//             EntryType::App(app_entry_type) => Ok(app_entry_type),
+//             _ => Err(HolochainError::ErrorGeneric(format!(
+//                 "Attempted to convert {:?} EntryType to an Order",
+//                 entry_type
+//             ))),
+//         }
+//     }
+// }

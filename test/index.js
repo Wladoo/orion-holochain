@@ -19,6 +19,11 @@ scenario.runTape("create order", async (t, { alice }) => {
     var {Ok: addr} = res;
     t.deepEqual(res.Ok, addr);
 
+    const res1 = alice.call("orion_project1", "get_order", {"addr": addr});
+    t.equal(res1.Err, undefined);
+
+
+
     const res2 = alice.call("orion_project1", "approve_order", {"addr": addr});
     t.equal(res2.Err, undefined);
 });

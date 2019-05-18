@@ -49,6 +49,12 @@ define_zome! {
             handler: order::handle_create
         }
 
+        get_order: {
+            inputs: |addr: HashString|,
+            outputs: |result: Result<order::Order, ZomeApiError>|,
+            handler: order::handle_get_single
+        }
+
         approve_order: {
             inputs: |addr: HashString|,
             outputs: |result: Result<(), ZomeApiError>|,
@@ -66,6 +72,7 @@ define_zome! {
         hc_public [
             create_broker,
             initialize_order,
+            get_order,
             approve_order,
             create_trade
         ]
