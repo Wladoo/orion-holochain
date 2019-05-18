@@ -131,7 +131,7 @@ pub fn handle_approve(addr: HashString) -> Result<(), ZomeApiError> {
 
       // todo
       _ => {
-        unimplemented!()
+          Err(hdk::error::ZomeApiError::HashNotFound)
       }
     }
 }
