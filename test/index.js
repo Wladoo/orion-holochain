@@ -11,21 +11,48 @@ scenario.runTape("create broker", async (t, { alice }) => {
     const res1 = alice.call("orion_project1", "create_broker", {"name": "broker1"});
     var {Ok: addr} = res1;
     t.deepEqual(res1.Ok, addr);
+    // t.deepEqual(res1.Ok, res1);
+
+    // t.deepEqual("QmYfmS8M4EZRkpkNqyAtCgPaMjguAnbwupvRfpASYo4j9k", addr);
+    // t.deepEqual(, addr);
+    t.ok(res1.Ok !== undefined && res1.Err === undefined);
 });
 
 scenario.runTape("create order", async (t, { alice }) => {
     //todo: why will it pass?
-    const res = alice.call("orion_project1", "initialize_order", {"name": "name1", /*todo*/});
-    var {Ok: addr} = res;
-    t.deepEqual(res.Ok, addr);
+    const res1 = alice.call("orion_project1", "initialize_order", {
+      "name": "ord1",
+      "base_asset_code": "EUR",
+      "quoted_asset_code": "GBP",
+      "direction": "Buy",
+      "quoted_price_per_unit": 33.5,
+      "amount": 44.6
+    });
 
-    const res1 = alice.call("orion_project1", "get_order", {"addr": addr});
-    t.equal(res1.Err, undefined);
+    var {Ok: addr1} = res1;
+    t.deepEqual(res1.Ok, addr1);
+    t.ok(res1.Ok !== undefined);
+    t.ok(res1.Err === undefined);
+    t.equal(res1, "aabbcc");
 
 
+    // todo
+    // const res2 = alice.call("orion_project1", "get_order", {"addr": addr1});
+    // t.equal(res2.Err, undefined);
+    // t.notEqual(res2.Ok, undefined);
 
-    const res2 = alice.call("orion_project1", "approve_order", {"addr": addr});
-    t.equal(res2.Err, undefined);
+
+    // //todo
+    // //check that 'status' is 'new'
+    // var {Ok: ord2} = res2;
+    // // t.equal(ord2.status, "fsafd");
+    // t.equal(ord2, "test2");
+
+    // const res3 = alice.call("orion_project1", "approve_order", {"addr": addr});
+    // t.equal(res3.Err, undefined);
+
+    //todo
+    //check that 'status' is 'approved'
 });
 
 scenario.runTape("create trade", async (t, { alice }) => {
