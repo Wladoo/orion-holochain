@@ -127,9 +127,7 @@ pub fn handle_approve(addr: HashString) -> Result<(), ZomeApiError> {
         let updated_order_entry = Entry::App("order".into(), upd_order.into());
         hdk::update_entry(updated_order_entry, &addr);
         Ok(())
-      }
-
-      // todo
+      },
       _ => {
           Err(hdk::error::ZomeApiError::HashNotFound)
       }
@@ -141,32 +139,3 @@ pub fn handle_create(base_asset_code: String, quoted_asset_code: String, directi
     let ord1_ent = Entry::App("order".into(), ord1.into());
     Ok(hdk::commit_entry(&ord1_ent)?)
 }
-
-
-
-
-
-
-
-
-
-
-// impl From<Option<Order>> for hdk::holochain_core_types::json::JsonString {
-//   fn from(order: Order) -> Self {
-//     JsonString::empty_object()
-//   }
-// }
-
-
-// impl TryFrom<EntryType> for Order {
-//     type Error = HolochainError;
-//     fn try_from(entry_type: EntryType) -> Result<Self, Self::Error> {
-//         match entry_type {
-//             EntryType::App(app_entry_type) => Ok(app_entry_type),
-//             _ => Err(HolochainError::ErrorGeneric(format!(
-//                 "Attempted to convert {:?} EntryType to an Order",
-//                 entry_type
-//             ))),
-//         }
-//     }
-// }
