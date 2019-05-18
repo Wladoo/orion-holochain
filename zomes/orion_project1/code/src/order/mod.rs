@@ -109,12 +109,9 @@ pub fn handle_get_single(addr: HashString) -> Result<Order, ZomeApiError> {
         Ok(Some(Entry::App(_, entry_json_str)))  => {
             let res = Order::try_from(entry_json_str)?;
             Ok(res)
-        }
-
-        //todo
-        // Ok(None) | Err(err) => {
+        },
         _ => {
-          unimplemented!()
+          Err(hdk::error::ZomeApiError::HashNotFound)
         }
     }
 }
