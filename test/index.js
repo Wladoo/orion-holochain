@@ -31,6 +31,7 @@ scenario.runTape("create order", async (t, { alice }) => {
     t.ok(res1.Ok !== undefined);
     t.ok(res1.Err === undefined);
     // t.ok(res1.Err, '1234');
+    t.deepEqual(res1, {Ok: "QmemoDUBtg7wAoHA6CWniGDNsfxKhaaREdUzLFyvKC12ZH"}, "address of 'create order' is correct");
 
     //todo: for debugging
     // t.equal(res1, "aabbcc"); 

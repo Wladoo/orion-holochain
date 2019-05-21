@@ -24,15 +24,12 @@ pub struct Order {
     base_asset_code: String,
     quoted_asset_code: String,
     direction: Direction,
-    // quoted_price_per_unit: f64,
-    // amount: f64,
+    quoted_price_per_unit: f64,
+    amount: f64,
+    status: Status,
 
-    quoted_price_per_unit: i64,
-    amount: i64,
-
-
+    //todo
     // inserted_at: u64,
-    status: Status
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
@@ -88,8 +85,8 @@ pub fn definition() -> ValidatingEntryType {
 }
 
 impl Order {
-    // fn new(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: f64, amount: f64) -> Self {
-    fn new(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: i64, amount: i64) -> Self {
+    fn new(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: f64, amount: f64) -> Self {
+        //todo
         // let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
         Order {
           exchange_addr: HashString::default(),
@@ -99,13 +96,14 @@ impl Order {
           direction: direction,
           quoted_price_per_unit: quoted_price_per_unit,
           amount: amount,
+          status: Status::New,
+          
+          // todo
           // inserted_at: ts,
-          status: Status::New
         }
     }
 
-  // fn calculate_total_price(self) -> f64 {
-  fn calculate_total_price(self) -> i64 {
+  fn calculate_total_price(self) -> f64 {
       self.amount * self.quoted_price_per_unit
   }
 }
@@ -137,8 +135,7 @@ pub fn handle_approve(addr: HashString) -> ZomeApiResult<Address> {
     }
 }
 
-// pub fn handle_create(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: f64, amount: f64) -> ZomeApiResult<Address> {
-pub fn handle_create(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: i64, amount: i64) -> ZomeApiResult<Address> {
+pub fn handle_create(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: f64, amount: f64) -> ZomeApiResult<Address> {
     let ord1 = Order::new(base_asset_code, quoted_asset_code, direction, quoted_price_per_unit, amount);
     let ord1_ent = Entry::App("order".into(), ord1.into());
     hdk::commit_entry(&ord1_ent)
