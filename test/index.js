@@ -24,7 +24,8 @@ scenario.runTape("create broker", async (t, { alice }) => {
     t.deepEqual(res1.Ok, undefined);
     t.deepEqual(res1.Okdfsfds, undefined);
 
-    //todo: error --> Internal: 'Argument deserialization failed'
+    //todo: debugging:
+    //error --> Internal: 'Argument deserialization failed'
     t.deepEqual(res1.Err, undefined);
 });
 
