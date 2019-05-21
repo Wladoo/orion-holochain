@@ -12,9 +12,12 @@ const scenario = new Scenario([instanceAlice])
 scenario.runTape("create broker", async (t, { alice }) => {
 
     //todo: it's unclear which one is correct
-    let ord1 = JSON.stringify({"name": "broker1"});
-    // let ord1 = {"name": "broker1"};
+    // let ord1 = JSON.stringify({"name": "broker1"});
+    let ord1 = {"name": "broker1"};
     const res1 = alice.call("orion_project1", "create_broker", ord1);
+
+    //todo: it seems that it returns 'undefined' and this is why this test passes
+    //because 'addr' and 'undefined' are equal
     var {Ok: addr} = res1;
     t.deepEqual(res1.Ok, addr);
 
@@ -23,6 +26,7 @@ scenario.runTape("create broker", async (t, { alice }) => {
     t.deepEqual(res1.Err, undefined);
     t.deepEqual(res1, 'aaa');
     t.deepEqual(res1.Ok, 'bbb');
+    t.deepEqual(res1.Err, 'ccc');
 
 
 
