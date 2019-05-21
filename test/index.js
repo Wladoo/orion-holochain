@@ -19,7 +19,7 @@ scenario.runTape("create order", async (t, { alice }) => {
     const res1 = alice.call("orion_project1", "initialize_order", {
       "base_asset_code": "EUR",
       "quoted_asset_code": "GBP",
-      "direction": "Buy",
+      "direction": {"Buy": {}},
       "quoted_price_per_unit": 33.5,
       "amount": 44.6
     });

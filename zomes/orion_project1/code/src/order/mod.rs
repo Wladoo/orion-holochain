@@ -2,7 +2,8 @@ use hdk::{
     self,
     entry_definition::ValidatingEntryType,
     error::ZomeApiResult,
-    error::ZomeApiError
+    error::ZomeApiError,
+    AGENT_ADDRESS
 };
 use hdk::holochain_core_types::{
     cas::content::Address,
