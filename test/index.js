@@ -10,38 +10,11 @@ const scenario = new Scenario([instanceAlice])
 
 //todo
 scenario.runTape("create broker", async (t, { alice }) => {
-
-    //todo: it's unclear which one is correct
-    // let ord1 = JSON.stringify({"name": "broker1"});
     let ord1 = {"name": "broker1"};
     const res1 = alice.call("orion_project1", "create_broker", ord1);
 
-    //todo: it seems that it returns 'undefined' and this is why this test passes
-    //because 'addr' and 'undefined' are equal
-    var {Ok: addr} = res1;
-    t.deepEqual(res1.Ok, addr);
-
-    //todo: depending on the way 'ord1' is created, it might throw an error
-    //error --> Internal: 'Argument deserialization failed'
-    t.deepEqual(res1.Err, undefined);
-    t.deepEqual(res1, 'aaa');
-    t.deepEqual(res1.Ok, 'bbb');
-    t.deepEqual(res1.Err, 'ccc');
-
-
-
-
-
-
-    //todo
-    // t.deepEqual(res1.Ok, undefined);
-    // t.equal(res1.Ok, undefined);
-
-    // //todo
-    // // t.ok(res1.Ok !== undefined && res1.Err === undefined);
-    // // t.ok(res1.Ok !== undefined);
-    // t.deepEqual(res1.Ok, undefined);
-    // t.deepEqual(res1.Okdfsfds, undefined);
+    t.deepEqual(res1, {Ok: "QmYfmS8M4EZRkpkNqyAtCgPaMjguAnbwupvRfpASYo4j9k"}, "address of 'create broker' is correct");
+    t.ok(res1, res1.Ok !== undefined && res1.Err === undefined);
 });
 
 scenario.runTape("create order", async (t, { alice }) => {

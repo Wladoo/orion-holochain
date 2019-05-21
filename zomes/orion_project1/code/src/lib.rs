@@ -72,6 +72,7 @@ define_zome! {
     traits: {
         hc_public [
             create_broker,
+            create_broker2,
             initialize_order,
             get_order,
             approve_order,
