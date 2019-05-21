@@ -10,23 +10,34 @@ const scenario = new Scenario([instanceAlice])
 
 //todo
 scenario.runTape("create broker", async (t, { alice }) => {
-    const res1 = alice.call("orion_project1", "create_broker", {"name": "broker1"});
+
+    //todo: it's unclear which one is correct
+    let ord1 = JSON.stringify({"name": "broker1"});
+    // let ord1 = {"name": "broker1"};
+    const res1 = alice.call("orion_project1", "create_broker", ord1);
     var {Ok: addr} = res1;
     t.deepEqual(res1.Ok, addr);
 
-    //todo
-    t.deepEqual(res1.Ok, undefined);
-    t.equal(res1.Ok, undefined);
-
-    //todo
-    // t.ok(res1.Ok !== undefined && res1.Err === undefined);
-    // t.ok(res1.Ok !== undefined);
-    t.deepEqual(res1.Ok, undefined);
-    t.deepEqual(res1.Okdfsfds, undefined);
-
-    //todo: debugging:
+    //todo: depending on the way 'ord1' is created, it might throw an error
     //error --> Internal: 'Argument deserialization failed'
     t.deepEqual(res1.Err, undefined);
+    t.deepEqual(res1, 'aaa');
+    t.deepEqual(res1.Ok, 'bbb');
+
+
+
+
+
+
+    //todo
+    // t.deepEqual(res1.Ok, undefined);
+    // t.equal(res1.Ok, undefined);
+
+    // //todo
+    // // t.ok(res1.Ok !== undefined && res1.Err === undefined);
+    // // t.ok(res1.Ok !== undefined);
+    // t.deepEqual(res1.Ok, undefined);
+    // t.deepEqual(res1.Okdfsfds, undefined);
 });
 
 scenario.runTape("create order", async (t, { alice }) => {
@@ -41,7 +52,6 @@ scenario.runTape("create order", async (t, { alice }) => {
 
     var {Ok: addr1} = res1;
     t.deepEqual(res1.Ok, addr1);
-    // t.equal(addr1, 1234);
     t.ok(res1.Ok != undefined);
     t.ok(res1.Err == undefined);
     t.ok(res1.Err, '1234');

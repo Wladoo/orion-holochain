@@ -78,7 +78,6 @@ pub fn definition() -> ValidatingEntryType {
 }
 
 pub fn handle_create(name: String) -> ZomeApiResult<Address> {
-    // let brk = Broker{name: name.into()};
     let brk = Broker{name: name};
     let entry = Entry::App("broker".into(), brk.into());
 
