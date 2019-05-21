@@ -90,7 +90,7 @@ pub fn definition() -> ValidatingEntryType {
 impl Order {
     // fn new(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: f64, amount: f64) -> Self {
     fn new(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: i64, amount: i64) -> Self {
-        let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
+        // let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
         Order {
           exchange_addr: HashString::default(),
           broker_addr: HashString::default(),
