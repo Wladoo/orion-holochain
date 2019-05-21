@@ -103,7 +103,7 @@ impl Order {
   }
 }
 
-pub fn handle_get_single(addr: HashString) -> Result<Order, ZomeApiError> {
+pub fn handle_get_single(addr: HashString) -> ZomeApiResult<Order> {
     match hdk::get_entry(&addr) {
         Ok(Some(Entry::App(_, entry_json_str)))  => {
             let res = Order::try_from(entry_json_str)?;

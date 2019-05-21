@@ -52,7 +52,7 @@ define_zome! {
 
         get_order: {
             inputs: |addr: HashString|,
-            outputs: |result: Result<order::Order, ZomeApiError>|,
+            outputs: |result: ZomeApiResult<order::Order>|,
             handler: order::handle_get_single
         }
 
