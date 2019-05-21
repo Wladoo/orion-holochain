@@ -33,7 +33,7 @@ pub struct Order {
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub enum Direction {
     Buy,
-    Sell
+    Sell,
 }
 
 //todo: think
@@ -42,7 +42,7 @@ pub enum Status {
     New,
     Pending,
     Approved,
-    Closed
+    Closed,
 }
 
 pub fn definition() -> ValidatingEntryType {
@@ -85,7 +85,7 @@ pub fn definition() -> ValidatingEntryType {
 impl Order {
     fn new(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: f64, amount: f64) -> Self {
         let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
-        Order{
+        Order {
           exchange_addr: HashString::default(),
           broker_addr: HashString::default(),
           base_asset_code: base_asset_code,
@@ -133,7 +133,5 @@ pub fn handle_approve(addr: HashString) -> ZomeApiResult<Address> {
 pub fn handle_create(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: f64, amount: f64) -> ZomeApiResult<Address> {
     let ord1 = Order::new(base_asset_code, quoted_asset_code, direction, quoted_price_per_unit, amount);
     let ord1_ent = Entry::App("order".into(), ord1.into());
-
-    //fix: it won't create an entry
     hdk::commit_entry(&ord1_ent)
 }
