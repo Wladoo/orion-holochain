@@ -7,11 +7,25 @@ const dna = Config.dna(dnaPath)
 const instanceAlice = Config.instance(agentAlice, dna)
 const scenario = new Scenario([instanceAlice])
 
+
+//todo
 scenario.runTape("create broker", async (t, { alice }) => {
     const res1 = alice.call("orion_project1", "create_broker", {"name": "broker1"});
     var {Ok: addr} = res1;
     t.deepEqual(res1.Ok, addr);
-    t.ok(res1.Ok !== undefined && res1.Err === undefined);
+
+    //todo
+    t.deepEqual(res1.Ok, undefined);
+    t.equal(res1.Ok, undefined);
+
+    //todo
+    // t.ok(res1.Ok !== undefined && res1.Err === undefined);
+    // t.ok(res1.Ok !== undefined);
+    t.deepEqual(res1.Ok, undefined);
+    t.deepEqual(res1.Okdfsfds, undefined);
+
+    //todo: error --> Internal: 'Argument deserialization failed'
+    t.deepEqual(res1.Err, undefined);
 });
 
 scenario.runTape("create order", async (t, { alice }) => {
@@ -26,11 +40,13 @@ scenario.runTape("create order", async (t, { alice }) => {
 
     var {Ok: addr1} = res1;
     t.deepEqual(res1.Ok, addr1);
-    t.ok(res1.Ok !== undefined);
-    t.ok(res1.Err === undefined);
+    // t.equal(addr1, 1234);
+    t.ok(res1.Ok != undefined);
+    t.ok(res1.Err == undefined);
+    t.ok(res1.Err, '1234');
 
     //todo: for debugging
-    t.equal(res1, "aabbcc"); 
+    t.equal(addr1, "aabbcc"); 
 
 
     // todo

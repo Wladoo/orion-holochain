@@ -15,7 +15,8 @@ use hdk::holochain_core_types::{
     hash::HashString
 };
 use hdk::{
-    error::ZomeApiError
+    error::ZomeApiError,
+    error::ZomeApiResult
 };
 
 pub mod broker;
@@ -39,13 +40,13 @@ define_zome! {
     functions: [
         create_broker: {
             inputs: |name: String|,
-            outputs: |result: std::result::Result<HashString, ZomeApiError>|,
+            outputs: |result: ZomeApiResult<Address>|,
             handler: broker::handle_create
         }
 
         initialize_order: {
             inputs: |base_asset_code: String, quoted_asset_code: String, direction: order::Direction, quoted_price_per_unit: f64, amount: f64|,
-            outputs: |result: Result<HashString, ZomeApiError>|,
+            outputs: |result: ZomeApiResult<Address>|,
             handler: order::handle_create
         }
 
@@ -57,7 +58,7 @@ define_zome! {
 
         approve_order: {
             inputs: |addr: HashString|,
-            outputs: |result: Result<(), ZomeApiError>|,
+            outputs: |result: ZomeApiResult<Address>|,
             handler: order::handle_approve
         }
 
