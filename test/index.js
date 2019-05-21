@@ -21,26 +21,9 @@ scenario.runTape("create order", async (t, { alice }) => {
     const res1 = alice.call("orion_project1", "initialize_order", {
       "base_asset_code": "EUR",
       "quoted_asset_code": "GBP",
-
-
-      //won't work
-      // "direction": {"Buy": {}},
-      // "direction": {"Buy": 123},
-      // "direction": {"Buy": undefined},
-      // "direction": {"Buy": ""},
-      // "direction": {"Buy": null},
-      // "direction": null,
-      // "direction": {"buy": null},
       "direction": "Buy",
-
-
-
-      // "quoted_price_per_unit": 33.5,
-      "quoted_price_per_unit": 33,
-
-
-      // "amount": 44.6
-      "amount": 44
+      "quoted_price_per_unit": 33.5,
+      "amount": 44.6
     });
 
     // var {Ok: addr1} = res1;
@@ -50,7 +33,7 @@ scenario.runTape("create order", async (t, { alice }) => {
     // t.ok(res1.Err, '1234');
 
     //todo: for debugging
-    t.equal(res1, "aabbcc"); 
+    // t.equal(res1, "aabbcc"); 
 
 
 
