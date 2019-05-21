@@ -23,7 +23,7 @@ scenario.runTape("create order", async (t, { alice }) => {
       "quoted_asset_code": "GBP",
 
 
-      //don't work
+      //won't work
       // "direction": {"Buy": {}},
       // "direction": {"Buy": 123},
       // "direction": {"Buy": undefined},
