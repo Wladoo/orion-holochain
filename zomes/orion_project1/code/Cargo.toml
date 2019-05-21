@@ -7,10 +7,10 @@ authors = ["alex maslakov <alex@serendipia.email>"]
 serde = "1.0"
 serde_json = "1.0"
 serde_derive = "1.0"
-hdk = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.14-alpha1" }
-holochain_core_types = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.14-alpha1" }
-holochain_core_types_derive = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.14-alpha1" }
-holochain_wasm_utils = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.14-alpha1" }
+hdk = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.16-alpha1" }
+holochain_core_types = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.16-alpha1" }
+holochain_core_types_derive = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.16-alpha1" }
+holochain_wasm_utils = { git = "https://github.com/holochain/holochain-rust", tag = "v0.0.16-alpha1" }
 boolinator = "2.4.0"
 
 [lib]

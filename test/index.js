@@ -24,14 +24,23 @@ scenario.runTape("create order", async (t, { alice }) => {
 
 
       //don't work
-      "direction": {"Buy": {}},
+      // "direction": {"Buy": {}},
       // "direction": {"Buy": 123},
       // "direction": {"Buy": undefined},
       // "direction": {"Buy": ""},
+      // "direction": {"Buy": null},
+      // "direction": null,
+      // "direction": {"buy": null},
+      "direction": "Buy",
 
 
-      "quoted_price_per_unit": 33.5,
-      "amount": 44.6
+
+      // "quoted_price_per_unit": 33.5,
+      "quoted_price_per_unit": 33,
+
+
+      // "amount": 44.6
+      "amount": 44
     });
 
     // var {Ok: addr1} = res1;
