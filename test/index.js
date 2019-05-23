@@ -30,7 +30,16 @@ scenario.runTape("create order", async (t, { alice }) => {
     t.deepEqual(res1, {Ok: "QmemoDUBtg7wAoHA6CWniGDNsfxKhaaREdUzLFyvKC12ZH"}, "address of 'create order' is correct");
 
 
+
     //todo
+    const res2 = alice.call("orion_project1", "get_order", {addr: res1.Ok});
+    const ord1 = res2.Ok;
+    t.notEqual(ord1.status, "Approved", "status isn't Approved");
+    // t.equal(res2.status, "fdsafds", "debugging2");
+
+    // t.notEqual(res2.status, "Approved");
+    const _ = alice.call("orion_project1", "approve_order", {addr: res1.Ok});
+    t.equal(ord1.status, "Approved", "status is Approved");
 });
 
 scenario.runTape("create trade", async (t, { alice }) => {
