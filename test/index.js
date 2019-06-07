@@ -35,7 +35,7 @@ scenario.runTape("create order", async (t, { alice }) => {
     await alice.callSync("orion_project1", "approve_order", {addr: res1.Ok});
 
     const res3 = alice.call("orion_project1", "get_order", {addr: res1.Ok});
-    t.equal(res3.Ok.status, "Approved", "status is Approved33");
+    t.equal(res3.Ok.status, "Approved", "status is Approved");
 });
 
 scenario.runTape("create trade", async (t, { alice }) => {

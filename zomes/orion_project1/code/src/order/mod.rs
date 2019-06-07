@@ -127,12 +127,7 @@ pub fn handle_approve(addr: HashString) -> ZomeApiResult<Address> {
             let mut upd_order = Order::new(orig_order.base_asset_code, orig_order.quoted_asset_code, orig_order.direction, orig_order.quoted_price_per_unit, orig_order.amount);
             upd_order.status = Status::Approved;
             let updated_order_entry = Entry::App("order".into(), upd_order.into());
-
-
-            // todo
-            let a1 = hdk::update_entry(updated_order_entry, &addr);
-            hdk::debug(format!("debug123 {:?}", a1));
-            a1
+            hdk::update_entry(updated_order_entry, &addr)
       },
         _ => {
             Err(hdk::error::ZomeApiError::HashNotFound)
