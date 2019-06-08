@@ -24,3 +24,13 @@ run the tests:
 ```
 hc test
 ```
+
+#### notes
+
+  * some functions aren't permitted in WASM. They'll throw a runtime error when called from Rust code. For instance:
+
+```
+  SystemTime::now().duration_since(UNIX_EPOCH);
+```
+
+will

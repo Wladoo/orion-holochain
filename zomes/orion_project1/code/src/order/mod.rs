@@ -27,9 +27,6 @@ pub struct Order {
     quoted_price_per_unit: f64,
     amount: f64,
     status: Status,
-
-    //todo
-    // inserted_at: u64,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
@@ -86,8 +83,6 @@ pub fn definition() -> ValidatingEntryType {
 
 impl Order {
     fn new(base_asset_code: String, quoted_asset_code: String, direction: Direction, quoted_price_per_unit: f64, amount: f64) -> Self {
-        //todo
-        // let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
         Order {
           exchange_addr: HashString::default(),
           broker_addr: HashString::default(),
@@ -97,9 +92,6 @@ impl Order {
           quoted_price_per_unit: quoted_price_per_unit,
           amount: amount,
           status: Status::New,
-          
-          // todo
-          // inserted_at: ts,
         }
     }
 
