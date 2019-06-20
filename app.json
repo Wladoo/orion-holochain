@@ -10,6 +10,10 @@
   ],
   "version": "0.0.1",
   "dht": {},
-  "properties": null
+
+  // todo - save public key here
+  "properties": {
+    public_key: "todo-123"
+  }
 }
 
