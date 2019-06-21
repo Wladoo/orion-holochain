@@ -104,7 +104,7 @@ pub fn definition() -> ValidatingEntryType {
                 let first_author_agent_address = first_author.0.to_string();
                 // if self is not alice, and entry author is alice, don't hold the Entry
                 if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
-                    Err("No one but Alice will hold Alice's entries".to_string())
+                    Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
                 }
                 else {
                     Ok(())
