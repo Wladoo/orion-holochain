@@ -105,17 +105,25 @@ pub fn definition() -> ValidatingEntryType {
                 let first_author = &chain_header.provenances()[0];
                 // first_author is a tuple (agent_address, agent_signature)
                 let first_author_agent_address = first_author.0.to_string();
-                // if self is not alice, and entry author is alice, don't hold the Entry
-                if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
-                    Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
-                }
-                else {
-                    Ok(())
-                }
+
+
+                // if self is not orion, and entry author is orion, don't hold the Entry
+                // if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
+                // if false {
+                //     Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
+                // }
+                // else {
+                //     Ok(())
+                // }
+
+                Ok(())
               },
 
+            // todo: add 'modify'
             _ => {
-                Err("Cannot modify, only create and delete".into())
+                // Err("Cannot modify, only create and delete".into())
+                Ok(())
+
             }
           }
 
