@@ -16,6 +16,7 @@ use hdk::holochain_core_types::{
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::{collections::BTreeMap, convert::TryFrom};
 
+const ORION_MAIN_AGENT_ADDRESS: &'static str = "orion123_test-----------------------------------------------------------------------------fdsafdsafds";
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct Order {
@@ -102,7 +103,7 @@ pub fn definition() -> ValidatingEntryType {
                 // first_author is a tuple (agent_address, agent_signature)
                 let first_author_agent_address = first_author.0.to_string();
                 // if self is not alice, and entry author is alice, don't hold the Entry
-                if hdk::AGENT_ADDRESS.to_string() != ALICE_ADDRESS && first_author_agent_address == ALICE_ADDRESS {
+                if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
                     Err("No one but Alice will hold Alice's entries".to_string())
                 }
                 else {
