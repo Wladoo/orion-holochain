@@ -11,7 +11,8 @@ use hdk::holochain_core_types::{
     entry::Entry,
     error::HolochainError,
     json::{JsonString,RawString},
-    dna::entry_types::Sharing
+    dna::entry_types::Sharing,
+    validation::{EntryValidationData}
 };
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::{collections::BTreeMap, convert::TryFrom};
@@ -60,20 +61,22 @@ pub fn definition() -> ValidatingEntryType {
 
           match validation_data {
             // only match if the entry is being created (not modified or deleted)
-            EntryValidationData::Create {entry, validation_data} => 
+            EntryValidationData::Create {entry, validation_data} => {
+
+                // todo: remove
+                // 1
+                // {
+                //     let game_proposal = GameProposal::from(entry);
+                //     if validation_data.sources().contains(&game_proposal.agent) {
+                //         Ok(())
+                //     } else {
+                //         Err("Cannot author a proposal from another agent".into())
+                //     }
+                // }
 
 
-            // 1
-            // {
-            //     let game_proposal = GameProposal::from(entry);
-            //     if validation_data.sources().contains(&game_proposal.agent) {
-            //         Ok(())
-            //     } else {
-            //         Err("Cannot author a proposal from another agent".into())
-            //     }
-            // }
-
-              // 2
+                // todo: remove
+                // 2
                 // {
                 //     // **Initial Validation**
                 //     // Check that the origin is from a valid device
@@ -86,10 +89,10 @@ pub fn definition() -> ValidatingEntryType {
                 //         }
                 //         _=> Err("Could not Validate Rules: Source is not equal to the provenances".to_string())
                 //     }
-                    // **On Update**
-                    // Check if signed by Prior Revocation Key on Update
-                    // (field not required on Create)
-                    // Ok(())
+                // **On Update**
+                // Check if signed by Prior Revocation Key on Update
+                // (field not required on Create)
+                // Ok(())
 
 
 
@@ -109,10 +112,8 @@ pub fn definition() -> ValidatingEntryType {
                 else {
                     Ok(())
                 }
+              },
 
-},
-
-            ,
             _ => {
                 Err("Cannot modify, only create and delete".into())
             }
