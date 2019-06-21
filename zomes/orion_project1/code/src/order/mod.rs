@@ -53,7 +53,72 @@ pub fn definition() -> ValidatingEntryType {
         hdk::ValidationPackageDefinition::Entry
       },
       validation: |validation_data: hdk::EntryValidationData<Order>| {
-          Ok(())
+          //todo:
+          // https://developer.holochain.org/api/latest/hdk/api/fn.property.html
+          // hdk::property("public_key")
+
+          match validation_data {
+            // only match if the entry is being created (not modified or deleted)
+            EntryValidationData::Create {entry, validation_data} => 
+
+
+            // 1
+            // {
+            //     let game_proposal = GameProposal::from(entry);
+            //     if validation_data.sources().contains(&game_proposal.agent) {
+            //         Ok(())
+            //     } else {
+            //         Err("Cannot author a proposal from another agent".into())
+            //     }
+            // }
+
+              // 2
+                // {
+                //     // **Initial Validation**
+                //     // Check that the origin is from a valid device
+                //     // i.e. the agent is linked from RootHash
+                //     let source = &validation_data.package.chain_header.provenances()[0].0;
+                //     match validation_source(source,_r.keyset_root){
+                //         Ok(v) => {
+                //             if v {return Ok(())}
+                //             else {return Err("Could not Validate Rules: Source is not equal to the provenances".to_string())}
+                //         }
+                //         _=> Err("Could not Validate Rules: Source is not equal to the provenances".to_string())
+                //     }
+                    // **On Update**
+                    // Check if signed by Prior Revocation Key on Update
+                    // (field not required on Create)
+                    // Ok(())
+
+
+
+                // 3
+                // when using (in validation_package) hdk::ValidationPackageDefinition::Entry
+                // the chain_header for the entry is returned, providing some useful
+                // metadata for validating against
+                let chain_header = &validation_data.package.chain_header;
+                // provenances() returns an array, since there can be multiple authors/signers for a single Entry
+                let first_author = &chain_header.provenances()[0];
+                // first_author is a tuple (agent_address, agent_signature)
+                let first_author_agent_address = first_author.0.to_string();
+                // if self is not alice, and entry author is alice, don't hold the Entry
+                if hdk::AGENT_ADDRESS.to_string() != ALICE_ADDRESS && first_author_agent_address == ALICE_ADDRESS {
+                    Err("No one but Alice will hold Alice's entries".to_string())
+                }
+                else {
+                    Ok(())
+                }
+
+},
+
+            ,
+            _ => {
+                Err("Cannot modify, only create and delete".into())
+            }
+          }
+
+
+
       },
 
       links: [
