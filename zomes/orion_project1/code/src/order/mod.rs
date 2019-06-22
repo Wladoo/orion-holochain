@@ -80,15 +80,21 @@ pub fn definition() -> ValidatingEntryType {
 
                 // hdk::debug("****************************** test1");
 
-              // return Ok(());
+
+              //todo:
+              // call to `hdk::AGENT_ADDRESS.to_string()` throws a runtime error
+              //why?
+
+
               // let a1 = hdk::AGENT_ADDRESS.to_string() == first_author_agent_address;
-              let a1 = hdk::AGENT_ADDRESS.to_string() == "first_author_agent_address";
+              // let a1 = hdk::AGENT_ADDRESS.to_string() == "first_author_agent_address";
+              // let a1 = hdk::AGENT_ADDRESS.to_string();
               //*** if self is not orion, and entry author is orion, don't hold the Entry
               // if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
-              // if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS && first_author_agent_address != ORION_MAIN_AGENT_ADDRESS {
               // if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS {
-              if true {
+              // if true {
               // if hdk::AGENT_ADDRESS.to_string() == first_author_agent_address {
+              if first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
                 Ok(())
                 // return Ok(());
 
