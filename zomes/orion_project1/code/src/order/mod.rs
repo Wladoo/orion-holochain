@@ -87,8 +87,9 @@ pub fn definition() -> ValidatingEntryType {
 
 
               // let a1 = hdk::AGENT_ADDRESS.to_string() == first_author_agent_address;
-              // let a1 = hdk::AGENT_ADDRESS.to_string() == "first_author_agent_address";
+              // let a1 = hdk::AGENT_ADDRESS.to_string() == "test123";
               // let a1 = hdk::AGENT_ADDRESS.to_string();
+
               //*** if self is not orion, and entry author is orion, don't hold the Entry
               // if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
               // if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS {
@@ -96,25 +97,15 @@ pub fn definition() -> ValidatingEntryType {
               // if hdk::AGENT_ADDRESS.to_string() == first_author_agent_address {
               if first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
                 Ok(())
-                // return Ok(());
-
               } else {
-
                 Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
-                // Ok(())
-                // return Ok(());
-              
               }
             },
 
             // todo: add 'modify'
             _ => {
-
-                // hdk::debug("****************************** test2");
-
                 // Err("Cannot modify, only create and delete".into())
                 Ok(())
-
             }
           }
       },
