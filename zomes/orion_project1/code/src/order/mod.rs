@@ -56,13 +56,14 @@ pub fn definition() -> ValidatingEntryType {
         hdk::ValidationPackageDefinition::Entry
       },
       validation: |validation_data: hdk::EntryValidationData<Order>| {
-        return Ok(())
+
+        hdk::debug("****************************** test0");
+        // return Ok(());
           //todo:
           // https://developer.holochain.org/api/latest/hdk/api/fn.property.html
           // hdk::property("public_key")
             
 
-          // hdk::debug("****************************** test0");
 
           match validation_data {
             EntryValidationData::Create {entry, validation_data} => {
@@ -79,17 +80,23 @@ pub fn definition() -> ValidatingEntryType {
 
                 // hdk::debug("****************************** test1");
 
-
+              // return Ok(());
+              // let a1 = hdk::AGENT_ADDRESS.to_string() == first_author_agent_address;
+              let a1 = hdk::AGENT_ADDRESS.to_string() == "first_author_agent_address";
               //*** if self is not orion, and entry author is orion, don't hold the Entry
               // if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
               // if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS && first_author_agent_address != ORION_MAIN_AGENT_ADDRESS {
-              if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS {
+              // if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS {
+              if true {
               // if hdk::AGENT_ADDRESS.to_string() == first_author_agent_address {
                 Ok(())
+                // return Ok(());
+
               } else {
 
-                // Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
-                Ok(())
+                Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
+                // Ok(())
+                // return Ok(());
               
               }
             },
