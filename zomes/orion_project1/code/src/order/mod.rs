@@ -59,45 +59,52 @@ pub fn definition() -> ValidatingEntryType {
           //todo:
           // https://developer.holochain.org/api/latest/hdk/api/fn.property.html
           // hdk::property("public_key")
+            
+
+          // hdk::debug("****************************** test0");
 
           match validation_data {
             EntryValidationData::Create {entry, validation_data} => {
 
-                // when using (in validation_package) hdk::ValidationPackageDefinition::Entry
-                // the chain_header for the entry is returned, providing some useful
-                // metadata for validating against
-                let chain_header = &validation_data.package.chain_header;
-                // provenances() returns an array, since there can be multiple authors/signers for a single Entry
-                let first_author = &chain_header.provenances()[0];
-                // first_author is a tuple (agent_address, agent_signature)
-                let first_author_agent_address = first_author.0.to_string();
+              // when using (in validation_package) hdk::ValidationPackageDefinition::Entry
+              // the chain_header for the entry is returned, providing some useful
+              // metadata for validating against
+              let chain_header = &validation_data.package.chain_header;
+              // provenances() returns an array, since there can be multiple authors/signers for a single Entry
+              let first_author = &chain_header.provenances()[0];
+              // first_author is a tuple (agent_address, agent_signature)
+              let first_author_agent_address = first_author.0.to_string();
 
 
-                //*** if self is not orion, and entry author is orion, don't hold the Entry
-                // if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
-                // if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS && first_author_agent_address != ORION_MAIN_AGENT_ADDRESS {
-                if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS {
-                // if false {
-                    Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
-                }
-                else {
-                    Ok(())
-                }
+                // hdk::debug("****************************** test1");
 
-                // Ok(())
-              },
+
+              //*** if self is not orion, and entry author is orion, don't hold the Entry
+              // if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
+              // if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS && first_author_agent_address != ORION_MAIN_AGENT_ADDRESS {
+              if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS {
+              // if hdk::AGENT_ADDRESS.to_string() == first_author_agent_address {
+                Ok(())
+              } else {
+
+                // Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
+                Ok(())
+              
+              }
+            },
 
             // todo: add 'modify'
             _ => {
+
+                // hdk::debug("****************************** test2");
+
                 // Err("Cannot modify, only create and delete".into())
                 Ok(())
 
             }
           }
-
-
-
       },
+
 
       links: [
           to!(
