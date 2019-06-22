@@ -56,6 +56,7 @@ pub fn definition() -> ValidatingEntryType {
         hdk::ValidationPackageDefinition::Entry
       },
       validation: |validation_data: hdk::EntryValidationData<Order>| {
+        return Ok(())
           //todo:
           // https://developer.holochain.org/api/latest/hdk/api/fn.property.html
           // hdk::property("public_key")
