@@ -17,7 +17,8 @@ use hdk::holochain_core_types::{
 use std::time::{SystemTime, UNIX_EPOCH};
 use std::{collections::BTreeMap, convert::TryFrom};
 
-const ORION_MAIN_AGENT_ADDRESS: &'static str = "orion123_test-----------------------------------------------------------------------------fdsafdsafds";
+//todo - hardcoded value obtained from the JS tests
+const ORION_MAIN_AGENT_ADDRESS: &'static str = "HcScjwO9ji9633ZYxa6IYubHJHW6ctfoufv5eq4F7ZOxay8wR76FP4xeG9pY3ui";
 
 #[derive(Serialize, Deserialize, Debug, Clone, DefaultJson)]
 pub struct Order {
@@ -60,43 +61,8 @@ pub fn definition() -> ValidatingEntryType {
           // hdk::property("public_key")
 
           match validation_data {
-            // only match if the entry is being created (not modified or deleted)
             EntryValidationData::Create {entry, validation_data} => {
 
-                // todo: remove
-                // 1
-                // {
-                //     let game_proposal = GameProposal::from(entry);
-                //     if validation_data.sources().contains(&game_proposal.agent) {
-                //         Ok(())
-                //     } else {
-                //         Err("Cannot author a proposal from another agent".into())
-                //     }
-                // }
-
-
-                // todo: remove
-                // 2
-                // {
-                //     // **Initial Validation**
-                //     // Check that the origin is from a valid device
-                //     // i.e. the agent is linked from RootHash
-                //     let source = &validation_data.package.chain_header.provenances()[0].0;
-                //     match validation_source(source,_r.keyset_root){
-                //         Ok(v) => {
-                //             if v {return Ok(())}
-                //             else {return Err("Could not Validate Rules: Source is not equal to the provenances".to_string())}
-                //         }
-                //         _=> Err("Could not Validate Rules: Source is not equal to the provenances".to_string())
-                //     }
-                // **On Update**
-                // Check if signed by Prior Revocation Key on Update
-                // (field not required on Create)
-                // Ok(())
-
-
-
-                // 3
                 // when using (in validation_package) hdk::ValidationPackageDefinition::Entry
                 // the chain_header for the entry is returned, providing some useful
                 // metadata for validating against
@@ -107,16 +73,18 @@ pub fn definition() -> ValidatingEntryType {
                 let first_author_agent_address = first_author.0.to_string();
 
 
-                // if self is not orion, and entry author is orion, don't hold the Entry
+                //*** if self is not orion, and entry author is orion, don't hold the Entry
                 // if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS && first_author_agent_address == ORION_MAIN_AGENT_ADDRESS {
+                // if hdk::AGENT_ADDRESS.to_string() == ORION_MAIN_AGENT_ADDRESS && first_author_agent_address != ORION_MAIN_AGENT_ADDRESS {
+                if hdk::AGENT_ADDRESS.to_string() != ORION_MAIN_AGENT_ADDRESS {
                 // if false {
-                //     Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
-                // }
-                // else {
-                //     Ok(())
-                // }
+                    Err("No one but 'the Orion main agent' is permitted to create an order".to_string())
+                }
+                else {
+                    Ok(())
+                }
 
-                Ok(())
+                // Ok(())
               },
 
             // todo: add 'modify'

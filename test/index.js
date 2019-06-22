@@ -12,7 +12,6 @@ const scenario = new Scenario([instanceAlice])
 scenario.runTape("create broker", async (t, { alice }) => {
     let ord1 = {"name": "broker1"};
     const res1 = alice.call("orion_project1", "create_broker", ord1);
-
     t.deepEqual(res1, {Ok: "QmYfmS8M4EZRkpkNqyAtCgPaMjguAnbwupvRfpASYo4j9k"}, "address of 'create broker' is correct");
     t.ok(res1, res1.Ok !== undefined && res1.Err === undefined);
 });
